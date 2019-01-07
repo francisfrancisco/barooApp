@@ -1,74 +1,151 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import ChatScreen from '../screens/ChatScreen';
 import NewItemScreen from '../screens/NewItemScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import SelectPhotoScreen from '../screens/SelectPhotoScreen';
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
-});
+// const HomeStack = createStackNavigator({
+//   Home: HomeScreen,
+// });
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios' ? `ios-list-box` : 'md-list-box'
+// HomeStack.navigationOptions = {
+//   tabBarLabel: 'Home',
+//   tabBarIcon: ({ focused }) => (
+//     <TabBarIcon
+//       focused={focused}
+//       name={
+//         Platform.OS === 'ios' ? `ios-list-box` : 'md-list-box'
+//       }
+//     />
+//   ),
+// };
+
+// const ChatStack = createStackNavigator({
+//   Chat: ChatScreen,
+// });
+
+// ChatStack.navigationOptions = {
+//   tabBarLabel: 'Chat',
+//   tabBarIcon: ({ focused }) => (
+//     <TabBarIcon
+//       focused={focused}
+//       name={Platform.OS === 'ios' ? 'ios-chatbubbles' : 'md-chatbubbles'}
+//     />
+//   ),
+// };
+
+// const NewItemStack = createStackNavigator({
+//   NewItem: ,
+// });
+
+// NewItemStack.navigationOptions = {
+//   tabBarLabel: 'New Item',
+//   tabBarIcon: ({ focused }) => (
+//     <TabBarIcon
+//       focused={focused}
+//       name={Platform.OS === 'ios' ? 'ios-add-circle' : 'md-add-circle'}
+//     />
+//   ),
+// };
+
+// const ProfileStack = createStackNavigator({
+//   Settings: ProfileScreen,
+// });
+
+// ProfileStack.navigationOptions = {
+//   tabBarLabel: 'Profile',
+//   tabBarIcon: ({ focused }) => (
+//     <TabBarIcon
+//       focused={focused}
+//       name={Platform.OS === 'ios' ? 'ios-person' : 'md-person'}
+//     />
+//   ),
+// };
+
+// export default createBottomTabNavigator({
+//   HomeStack,
+//   ChatStack,
+//   NewItemStack,
+//   ProfileStack
+// });
+
+// Create our main tab navigator for moving between the Feed and Photo screens
+const navigator = createBottomTabNavigator(
+  {
+    Feed: {
+      screen: HomeScreen,
+      navigationOptions: {
+        tabBarIcon: ({ focused }) => (
+          <TabBarIcon
+            focused={focused}
+            name={
+              Platform.OS === 'ios' ? `ios-list-box` : 'md-list-box'
+            }
+          />
+        )
       }
-    />
-  ),
-};
+    },
+    Chat: {
+      screen: ChatScreen,
+      navigationOptions: {
+        tabBarIcon: ({ focused }) => (
+          <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? 'ios-chatbubbles' : 'md-chatbubbles'}
+          />
+        )
+      }
+    },
+    Item: {
+      screen: SelectPhotoScreen,
+      navigationOptions: {
+        tabBarIcon: ({ focused }) => (
+          <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? 'ios-add-circle' : 'md-add-circle'}
+          />
+        )
+      }
+    },
+    Profile: {
+      screen: ProfileScreen,
+      navigationOptions: {
+        tabBarIcon: ({ focused }) => (
+          <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? 'ios-person' : 'md-person'}
+          />
+        )
+      }
+    }
+  },
+  {
+    // We want to hide the labels and set a nice 2-tone tint system for our tabs
+    tabBarOptions: {
+      showLabel: false,
+      activeTintColor: 'black',
+      inactiveTintColor: 'gray',
+    },
+  },
+);
 
-const ChatStack = createStackNavigator({
-  Chat: ChatScreen,
-});
+// Create the navigator that pushes high-level screens like the `NewPost` screen.
+const MainStackNavigator = createStackNavigator(
+  {
+    Main: {
+      screen: navigator,
+      navigationOptions: { title: 'baroo' },
+    },
+    NewPost: NewItemScreen,
+  },
+  {
+    cardStyle: { backgroundColor: 'white' },
+  },
+);
 
-ChatStack.navigationOptions = {
-  tabBarLabel: 'Chat',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-chatbubbles' : 'md-chatbubbles'}
-    />
-  ),
-};
-
-const NewItemStack = createStackNavigator({
-  NewItem: NewItemScreen,
-});
-
-NewItemStack.navigationOptions = {
-  tabBarLabel: 'New Item',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-add-circle' : 'md-add-circle'}
-    />
-  ),
-};
-
-const ProfileStack = createStackNavigator({
-  Settings: ProfileScreen,
-});
-
-ProfileStack.navigationOptions = {
-  tabBarLabel: 'Profile',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-person' : 'md-person'}
-    />
-  ),
-};
-
-export default createBottomTabNavigator({
-  HomeStack,
-  ChatStack,
-  NewItemStack,
-  ProfileStack
-});
+// Export it as the root component
+export default MainStackNavigator;
