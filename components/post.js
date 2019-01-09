@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Image, Dimensions, TouchableOpacity} from 'react-native';
 import constants from '../constants';
-// import { connect } from 'react-redux';
 
 class Post extends Component{
 
@@ -17,12 +16,12 @@ class Post extends Component{
   render(){
     return(
       <View style={styles.container}>
-        <TouchableOpacity activeOpacity={.9} onPress={() => {this.GoToItem()}} style={{borderBottomWidth: StyleSheet.hairlineWidth*5, borderColor: 'black'}} >
+        {/* <TouchableOpacity activeOpacity={.9} onPress={() => {this.GoToItem()}} style={{borderBottomWidth: StyleSheet.hairlineWidth*5, borderColor: 'black'}} >
           <Image source={constants.images.stockPost} style={{width: this.state.screenWidth, height: this.state.screenHeight/2.5 }} />
-        </TouchableOpacity>
-        {/* <View>
-          <Text>GOLF CLUB DETAILS maybe modal?</Text>
-        </View> */}
+        </TouchableOpacity> */}
+        <View>
+          <Text>asdknf;alksdjf</Text>
+        </View>
       </View>
     )
   }

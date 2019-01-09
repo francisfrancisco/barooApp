@@ -6,7 +6,7 @@ import HeaderButtons from 'react-navigation-header-buttons';
 import * as firebase from 'firebase'
 import 'firebase/firestore';
 
-class NewItemScreen extends Component<Props> {
+class NewItemScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: 'New Item',
     headerRight: (
@@ -20,7 +20,7 @@ class NewItemScreen extends Component<Props> {
             if (text && image) {
               navigation.goBack();
               firebase.firestore().collection('clubs').add({
-                image: imageSlice.slice(1, imageSlice.length),
+                image: imageSlice.slice(1),
                 text
               })
               alert('Your item has been added')
@@ -39,11 +39,36 @@ class NewItemScreen extends Component<Props> {
 
   render() {
     const { image } = this.props.navigation.state.params;
+    console.log('asdfasdf' + image)
     return (
       <View style={{ padding: 10, flexDirection: 'column' }}>
         <Image
           source={{uri: this.props.navigation.state.params.image}}
-          style={{ resizeMode: 'contain', aspectRatio: 1, width: 72 }}
+          style={{ resizeMode: 'contain', aspectRatio: 1, width: 72, height: 200 }}
+        />
+       <TextInput
+          style={styles.input}
+          placeholder="Club Type"
+          onChangeText={text => {
+            this.setState({ text });
+            this.props.navigation.setParams({ text });
+          }}
+        />
+       <TextInput
+          style={styles.input}
+          placeholder="Dexterity"
+          onChangeText={text => {
+            this.setState({ text });
+            this.props.navigation.setParams({ text });
+          }}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Condition"
+          onChangeText={text => {
+            this.setState({ text });
+            this.props.navigation.setParams({ text });
+          }}
         />
         <TextInput
           multiline

@@ -1,10 +1,12 @@
 import React, {Component} from "react";
 import { View, Text, StyleSheet, Image, Button, ScrollView } from "react-native";
 import { PostFeed } from './'
+import HomeScreen from "../screens/HomeScreen";
+import HeaderButtons from 'react-navigation-header-buttons';
+import { Ionicons } from '@expo/vector-icons';
+
+
 class Profile extends Component {
-    static navigationOptions = {
-        title: 'PROFILE',
-      };
     render() {
 
         const prof = {
@@ -16,16 +18,20 @@ class Profile extends Component {
                 <View style={styles.userBar}>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                         <Image source={prof} style={styles.prof}/>
-                        <Text style={{marginHorizontal: 10}}>shonu_ff</Text>
+                        <Text style={{marginHorizontal: 10}}>Frank Francisco</Text>
                     </View>
-                    <View>
-                        <Text style={{fontSize: 30, alignItems: 'center'}}>golfgolfgolfgolfgolfgolf</Text>
-                        <Button title='LogOut' onPress={() => this.props.navigation.navigate('App')} />
-
+                    <View style={styles.info}>
+                        <Text style={{fontSize: 15, alignItems: 'center'}}>Mesa, AZ</Text>
+                        <Text style={{fontSize: 15, alignItems: 'center'}}>15 handicap</Text>
+                        {/* <Button title='LogOut' onPress={() => this.props.navigation.go} /> */}
+                    </View>
+                    <View style={styles.buttonsView}>
+                        <Button title='favorites' style={{ borderWidth: 3, borderColor: 'red'}}/>
+                        <Button title='my clubs' style={{ borderWidth: 3, borderColor: 'red'}}/>
                     </View>
                 </View>                
                 <ScrollView>
-                    <PostFeed />
+                    <HomeScreen />
                 </ScrollView>
             </View>  
         );
@@ -39,18 +45,7 @@ const styles = StyleSheet.create({
       flex: 1,
       width: 100 + '%',
       height: 100 + '%',
-      marginTop: 60
-    },
-    header: {
-      width: 100 + '%', 
-      height: 100,
-      backgroundColor: 'rgb(250,250,250)',
-      borderBottomColor: 'rgb(233,233,233)',
-      borderBottomWidth: StyleSheet.hairlineWidth,
-      justifyContent: 'center',
-      alignItems: 'center',
-      paddingTop: 60,
-      flexDirection: 'row'
+      marginTop: 10
     },
     prof: {
         width: 40,
@@ -65,6 +60,13 @@ const styles = StyleSheet.create({
         borderBottomWidth: StyleSheet.hairlineWidth,
         paddingHorizontal: 10,
         flexDirection: 'column',
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
+      },
+      info: {
+          marginTop: 15
+      },
+      buttonsView: {
+        flexDirection: 'row',
+
       }
   });

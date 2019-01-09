@@ -8,6 +8,8 @@ import NewItemScreen from '../screens/NewItemScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import SelectPhotoScreen from '../screens/SelectPhotoScreen';
 import ImagePickerScreen from '../screens/ImagePickerScreen';
+import HeaderButtons from 'react-navigation-header-buttons';
+import { Ionicons } from '@expo/vector-icons';
 
 const navigator = createBottomTabNavigator(
   {
@@ -54,7 +56,17 @@ const navigator = createBottomTabNavigator(
             focused={focused}
             name={Platform.OS === 'ios' ? 'ios-person' : 'md-person'}
           />
-        )
+        ),
+        headerRight: (
+          <HeaderButtons IconComponent={Ionicons} iconSize={23} color="black">
+            <HeaderButtons.Item
+              title="Log Out"
+              onPress={() => {
+               
+              }}
+            />
+          </HeaderButtons>  
+      )
       }
     }
   },

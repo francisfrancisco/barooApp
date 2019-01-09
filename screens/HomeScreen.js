@@ -5,13 +5,18 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  List,
   FlatList,
   ListItem,
   View,
-  ActivityIndicator
+  ActivityIndicator,
+  TouchableOpacity,
+  TouchableHighlight,
+  Dimensions,
+  Modal
 } from 'react-native';
 import { WebBrowser } from 'expo';
-import { PostFeed } from '../components';
+import { Post } from '../components';
 
 import * as firebase from 'firebase'
 import 'firebase/firestore';
@@ -24,29 +29,45 @@ class HomeScreen extends Component {
     title: 'baroo',
   };
 
-    constructor() {
-      super();
-      this.ref = firebase.firestore().collection('clubs');
-      this.unsubscribe = null;
-      this.
-      state = {
-        isLoading: true,
-        clubs: []
-      };
-    }
+  constructor() {
+    super();
+    this.ref = firebase.firestore().collection('clubs');
+    this.unsubscribe = null;
+    this.state = {
+      isLoading: true,
+      clubs: [],
+      data: [],
+      imgUrls: [],
+      cduFlag: 0,
+      modalVisible:false
+    };
+  }
 
   componentDidMount(){
-    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
-    // firebase.firestore().collection('clubs').get().then(snapshot => {
-    //   snapshot.docs.forEach(doc => {
-    //   })
-    // })
+    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);  
+  }
+
+  componentDidUpdate() {
+    if(!this.state.cduFlag) {
+      this.state.clubs.forEach(club => {
+        console.log('curr text', club.image)
+        firebase.storage().ref("images/").child(club.image).getDownloadURL().then( url =>{
+          club.image = url
+          this.setState({ imgUrls: [...this.state.imgUrls, url] })
+          console.log('after', club.image)
+        })        
+      })
+      // for(url of this.state.clubs) {
+
+      // }
+      this.setState({ cduFlag: 1 })
+    }
   }
 
   onCollectionUpdate = (querySnapshot) => {
     const clubs = [];
     querySnapshot.forEach((doc) => {
-      clubs.push(doc.data().image)
+      clubs.push(doc.data())
     });
     this.setState({
       clubs,
@@ -54,15 +75,36 @@ class HomeScreen extends Component {
    });
   }
 
-  //   _renderPost(){
-  //     <Text>hello</Text>
-  // }
-
-  // _returnKey(item){
-  //     return item.toString()
-  // }
+  toggleModal = () => {
+    this.setState({ modalVisible: !this.state.modalVisible });
+  }
 
   render() {
+    let imageTags = this.state.clubs.map((url,i) => {
+      console.log('moasudfhao', url)
+      return(
+        // <TouchableOpacity onPress={this.toggleModal()}>
+        <TouchableOpacity onPress={() => this.toggleModal()} key={i}>
+            <Image key={url} source={{uri: url.image}} style={{height:400, width: Dimensions.get('window').width}}/>
+            <View style={{marginTop: 22}}>
+            <Modal visible={this.state.modalVisible}>
+            <View style={{marginTop:22}}>
+              <Text>{url.text}</Text>
+              <TouchableHighlight
+                onPress={() => {
+                  this.toggleModal();
+                }}>
+                <Text>Hide Modal</Text>
+              </TouchableHighlight>
+              </View>
+            </Modal>
+            </View>
+        </TouchableOpacity>
+      )
+      }
+    )
+
+    let clubDesc = this.state.clubs.map((club,i) => <Text key={i}>{club.text}</Text>)
     if(this.state.isLoading){
       return(
         <View style={styles.activity}>
@@ -70,14 +112,11 @@ class HomeScreen extends Component {
         </View>
       )
     }
-    console.log(this.state.clubs)
+    
     return (
-      <ScrollView style={styles.container}>
-        {/* <FlatList
-        data={this.state.clubs}
-        keyExtractor={this._returnKey}
-        renderItem={this._renderPost}
-        /> */}
+      <ScrollView>
+        {imageTags}
+        {clubDesc}
       </ScrollView>
     );
   }

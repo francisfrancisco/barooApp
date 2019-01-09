@@ -28,7 +28,6 @@ class ImagePickerScreen extends Component {
     if (!result.cancelled) {
       this.uploadImage(result.uri)
         .then(() => {
-            //navigate
             this.props.navigation.navigate('NewPost', { image: result.uri })
         })
         .catch((error) => {
@@ -36,14 +35,6 @@ class ImagePickerScreen extends Component {
         });
     }
   }
-
-//   onTakePhotoPress = async () => {
-//     let result = await ImagePicker.launchCameraAsync();
-
-//     if (!result.cancelled) {
-//         this.props.navigation.navigate('NewPost', { image: result.uri })
-//     }
-//   }
 
   uploadImage = async (uri) => {
     let imageName = uri.slice(uri.lastIndexOf('/'))
@@ -61,10 +52,9 @@ class ImagePickerScreen extends Component {
         xhr.open('GET', uri, true);
         xhr.send(null);
       });
-    
-    //   firebase.storage().ref().getDownloadURL
 
     var ref = firebase.storage().ref().child("images/" + imageName );
+    ref.getDownloadURL().then((url) => console.log('sadfasdf' + url))
     return ref.put(blob);
   }
 
