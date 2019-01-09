@@ -3,11 +3,23 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 
-export default class App extends React.Component {
-  state = {
-    isLoadingComplete: false,
-  };
+import * as firebase from 'firebase';
+import fireKeys from './constants/fireKeys'
 
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoadingComplete: false,
+    }
+
+    // Initialize firebase...
+    if (!firebase.apps.length) { 
+        firebase.initializeApp(fireKeys.FirebaseConfig);
+        const settings = {timestampsInSnapshots: true};
+        firebase.firestore().settings(settings);
+    }
+  }
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
       return (

@@ -44,3 +44,68 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   }
 });
+
+//FROM INSTA CLONE EXAMPLE
+// import { Ionicons } from '@expo/vector-icons';
+
+// import React, {Component} from 'react';
+// import {View, Text, StyleSheet, Image, Dimensions, TouchableOpacity} from 'react-native';
+// import constants from '../constants';
+
+// const profileImageSize = 36;
+// const padding = 12;
+
+// class Post extends Component{
+
+//   state = {}
+
+//   componentDidMount() {
+//     if (!this.props.imageWidth) {
+//       // Get the size of the web image
+//       Image.getSize(this.props.image, (width, height) => {
+//         this.setState({ width, height });
+//       });
+//     }
+//   }
+
+//   render(){
+//     const { text, name, imageWidth, imageHeight, uid, image } = this.props;
+//     console.log(this.props.image)
+//     // Reduce the name
+//     const imgW = imageWidth || this.state.width;
+//     const imgH = imageHeight || this.state.height;
+//     const aspect = imgW / imgH || 1;
+//     return (
+//       <View>
+//         <Image
+//           resizeMode="contain"
+//           style={{
+//             backgroundColor: '#D8D8D8',
+//             width: '100%',
+//             aspectRatio: aspect,
+//           }}
+//           source={{ uri: image }}
+//         />
+//         {/* <Metadata name={name} description={text} /> */}
+//       </View>
+//     )
+//   }
+// }
+
+// export default Post
+
+
+// const styles = StyleSheet.create({
+//   text: { fontWeight: '600' },
+//   subtitle: {
+//     opacity: 0.8,
+//   },
+//   row: {
+//     flexDirection: 'row',
+//     justifyContent: 'space-between',
+//     alignItems: 'center',
+//   },
+//   padding: {
+//     padding,
+//   }
+// });

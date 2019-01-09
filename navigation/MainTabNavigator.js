@@ -7,73 +7,8 @@ import ChatScreen from '../screens/ChatScreen';
 import NewItemScreen from '../screens/NewItemScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import SelectPhotoScreen from '../screens/SelectPhotoScreen';
+import ImagePickerScreen from '../screens/ImagePickerScreen';
 
-// const HomeStack = createStackNavigator({
-//   Home: HomeScreen,
-// });
-
-// HomeStack.navigationOptions = {
-//   tabBarLabel: 'Home',
-//   tabBarIcon: ({ focused }) => (
-//     <TabBarIcon
-//       focused={focused}
-//       name={
-//         Platform.OS === 'ios' ? `ios-list-box` : 'md-list-box'
-//       }
-//     />
-//   ),
-// };
-
-// const ChatStack = createStackNavigator({
-//   Chat: ChatScreen,
-// });
-
-// ChatStack.navigationOptions = {
-//   tabBarLabel: 'Chat',
-//   tabBarIcon: ({ focused }) => (
-//     <TabBarIcon
-//       focused={focused}
-//       name={Platform.OS === 'ios' ? 'ios-chatbubbles' : 'md-chatbubbles'}
-//     />
-//   ),
-// };
-
-// const NewItemStack = createStackNavigator({
-//   NewItem: ,
-// });
-
-// NewItemStack.navigationOptions = {
-//   tabBarLabel: 'New Item',
-//   tabBarIcon: ({ focused }) => (
-//     <TabBarIcon
-//       focused={focused}
-//       name={Platform.OS === 'ios' ? 'ios-add-circle' : 'md-add-circle'}
-//     />
-//   ),
-// };
-
-// const ProfileStack = createStackNavigator({
-//   Settings: ProfileScreen,
-// });
-
-// ProfileStack.navigationOptions = {
-//   tabBarLabel: 'Profile',
-//   tabBarIcon: ({ focused }) => (
-//     <TabBarIcon
-//       focused={focused}
-//       name={Platform.OS === 'ios' ? 'ios-person' : 'md-person'}
-//     />
-//   ),
-// };
-
-// export default createBottomTabNavigator({
-//   HomeStack,
-//   ChatStack,
-//   NewItemStack,
-//   ProfileStack
-// });
-
-// Create our main tab navigator for moving between the Feed and Photo screens
 const navigator = createBottomTabNavigator(
   {
     Feed: {
@@ -101,7 +36,7 @@ const navigator = createBottomTabNavigator(
       }
     },
     Item: {
-      screen: SelectPhotoScreen,
+      screen: ImagePickerScreen,
       navigationOptions: {
         tabBarIcon: ({ focused }) => (
           <TabBarIcon
