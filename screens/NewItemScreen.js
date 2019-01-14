@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { Component } from 'react';
-import { Image, TextInput, View, StyleSheet } from 'react-native';
+import { Image, TextInput, ScrollView, StyleSheet } from 'react-native';
 import HeaderButtons from 'react-navigation-header-buttons';
 
 import * as firebase from 'firebase'
@@ -41,7 +41,7 @@ class NewItemScreen extends Component {
     const { image } = this.props.navigation.state.params;
     console.log('asdfasdf' + image)
     return (
-      <View style={{ padding: 10, flexDirection: 'column' }}>
+      <ScrollView style={{ padding: 10, flexDirection: 'column' }}>
         <Image
           source={{uri: this.props.navigation.state.params.image}}
           style={{ resizeMode: 'contain', aspectRatio: 1, width: 72, height: 200 }}
@@ -79,7 +79,7 @@ class NewItemScreen extends Component {
             this.props.navigation.setParams({ text });
           }}
         />
-      </View>
+      </ScrollView>
     );
   }
 }

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { View, Text, StyleSheet, Image, Button, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Image, Button, ScrollView, Dimensions } from "react-native";
 import { PostFeed } from './'
 import HomeScreen from "../screens/HomeScreen";
 import HeaderButtons from 'react-navigation-header-buttons';
@@ -25,10 +25,16 @@ class Profile extends Component {
                         <Text style={{fontSize: 15, alignItems: 'center'}}>15 handicap</Text>
                         {/* <Button title='LogOut' onPress={() => this.props.navigation.go} /> */}
                     </View>
-                    <View style={styles.buttonsView}>
-                        <Button title='favorites' style={{ borderWidth: 3, borderColor: 'red'}}/>
-                        <Button title='my clubs' style={{ borderWidth: 3, borderColor: 'red'}}/>
-                    </View>
+                    {/* <View style={styles.buttonsView}>
+                        <View style={{borderRightWidth: StyleSheet.hairlineWidth*2, borderRightColor: 'black', justifyContent:'center', alignItems: 'baseline', flexDirection: 'row', width: Dimensions.get('window').width}}>
+                            <View style={{width: Dimensions.get('window').width/2, height: 30}}>
+                                <Text>Favorites</Text>
+                            </View>
+                            <View style={{borderTop: StyleSheet.hairlineWidth*2, borderTopColor: 'black', width: Dimensions.get('window').width/2, height: 30}}>
+                                <Text>My Clubs</Text>
+                            </View>
+                        </View>
+                    </View> */}
                 </View>                
                 <ScrollView>
                     <HomeScreen />
@@ -54,7 +60,7 @@ const styles = StyleSheet.create({
       },
       userBar: {
         width: 100 + '%',
-        height: 200,
+        height: 130,
         backgroundColor: 'rgb(255,255,255)',
         borderBottomColor: 'rgb(233,233,233)',
         borderBottomWidth: StyleSheet.hairlineWidth,
@@ -67,6 +73,9 @@ const styles = StyleSheet.create({
       },
       buttonsView: {
         flexDirection: 'row',
-
+        justifyContent:'center',
+        alignItems: 'center',
+        marginTop: 60,
+        width: Dimensions.get('window').width
       }
   });

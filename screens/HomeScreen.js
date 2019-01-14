@@ -13,7 +13,8 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   Dimensions,
-  Modal
+  Modal,
+  Button
 } from 'react-native';
 import { WebBrowser } from 'expo';
 import { Post } from '../components';
@@ -22,7 +23,9 @@ import * as firebase from 'firebase'
 import 'firebase/firestore';
 
 
-
+const prof = {
+  uri: 'https://plus.google.com/_/focus/photos/public/AIbEiAIAAABDCLPfm62cwsbuOiILdmNhcmRfcGhvdG8qKDk5NDA5ZTg5OGI1YTBlMzc0OWNiMDgwNDE5NWRmNTc3MmE1ZmZmYmEwAUJOCeKX0cBHU08PDn2FMgi5BZoa?sz=128'
+}
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -81,30 +84,37 @@ class HomeScreen extends Component {
 
   render() {
     let imageTags = this.state.clubs.map((url,i) => {
-      console.log('moasudfhao', url)
       return(
-        // <TouchableOpacity onPress={this.toggleModal()}>
-        <TouchableOpacity onPress={() => this.toggleModal()} key={i}>
-            <Image key={url} source={{uri: url.image}} style={{height:400, width: Dimensions.get('window').width}}/>
-            <View style={{marginTop: 22}}>
-            <Modal visible={this.state.modalVisible}>
-            <View style={{marginTop:22}}>
-              <Text>{url.text}</Text>
-              <TouchableHighlight
-                onPress={() => {
-                  this.toggleModal();
-                }}>
-                <Text>Hide Modal</Text>
-              </TouchableHighlight>
-              </View>
-            </Modal>
-            </View>
-        </TouchableOpacity>
-      )
+        <View key={url}>
+          <View style={{flexDirection:'row'}} key={url}>
+            <TouchableOpacity onPress={() => this.toggleModal()} key={url} style={{ flexDirection:'row',borderWidth: StyleSheet.hairlineWidth*5, borderBottomWidth: StyleSheet.hairlineWidth*5, borderColor: 'white'}}>
+                <Image key={url} source={{uri: url.image}} style={{height:Dimensions.get('window').height/5, width: Dimensions.get('window').width, flexDirection: 'row'}}/>
+                <View>
+                  <Modal 
+                    visible={this.state.modalVisible}
+                    transparent={false}
+                    style={{backgroundColor:'green'}}
+                    animationType={'slide'}
+                    key={url}
+                  >
+                    <View key={url} style={{marginTop:80, justifyContent:'center', alignItems:'center'}}>
+                        <Button key={url} title='Hide' onPress={() => {this.toggleModal();}}/>
+                      <Image key={url} source={{uri: url.image}} style={{height:400, width: Dimensions.get('window').width}}/>
+                      <View style={{flexDirection: 'row', alignItems: 'center', justifyContent:'flex-start'}}>
+                        <Image source={prof} style={{height: 40, width: 40, borderRadius: 20 }}/>
+                        <Text style={{marginHorizontal: 10}}>Frank Francisco</Text>
+                    </View>
+                      <Text style={{fontSize: 20}}key={url}>{url.text}</Text>
+                    </View>
+                  </Modal>
+                </View>
+            </TouchableOpacity>
+          </View>
+        </View>
+        )
       }
     )
 
-    let clubDesc = this.state.clubs.map((club,i) => <Text key={i}>{club.text}</Text>)
     if(this.state.isLoading){
       return(
         <View style={styles.activity}>
@@ -116,7 +126,6 @@ class HomeScreen extends Component {
     return (
       <ScrollView>
         {imageTags}
-        {clubDesc}
       </ScrollView>
     );
   }

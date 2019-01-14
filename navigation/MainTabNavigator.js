@@ -91,7 +91,8 @@ const MainStackNavigator = createStackNavigator(
   },
   {
     cardStyle: { backgroundColor: 'white' },
-  },
+    titleStyle: { color: 'white' }
+  }
 );
 
 // Export it as the root component
